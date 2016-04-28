@@ -11,6 +11,5 @@ public class Leg {
 		this.scaley=scaley;
 		this.scalez=scalez;
 		this.app=app;
-		
 	}
 }
