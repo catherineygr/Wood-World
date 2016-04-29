@@ -51,7 +51,7 @@ public class Woodworld1 {
 		frmWoodworld = new JFrame();
 		frmWoodworld.getContentPane().setBackground(new Color(160, 82, 45));
 		frmWoodworld.setTitle("WoodWorld");
-		frmWoodworld.setBounds(100, 100, 800, 700);
+		frmWoodworld.setBounds(100, 100, 800, 725);
 		frmWoodworld.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmWoodworld.getContentPane().setLayout(null);
 		frmWoodworld.setLocationRelativeTo(null);
