@@ -1,5 +1,6 @@
 package edu.mccc.cos210.woodworld;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.ButtonGroup;
@@ -8,17 +9,21 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 
 public class WoodWorld {
-	
+	JFrame jf;
+	JPanel jp;
+	JPanel3D jp3d;
 	WoodWorld() {
 		JFrame jf = new JFrame("Wood World");
 		JMenu m = new JMenu("Menu");
-		JPanel3D jp3d = new JPanel3D();
 		jf.setJMenuBar(createMenu());
-		jf.add(jp3d);
+		jp= new JPanel();
+		jp.setPreferredSize(new Dimension(500,500));
+		jf.add(jp);
 		jf.pack();
 		jf.setResizable(false);
 		jf.setLocationRelativeTo(null);
@@ -29,6 +34,14 @@ public class WoodWorld {
 			JMenuBar mb = new JMenuBar();
 			
 			JMenu fm = new JMenu("File");
+			JMenuItem startb = new JMenuItem("Start");
+			startb.addActionListener(al->{
+				jf.remove(jp);
+				jp3d = new JPanel3D();
+				jf.add(jp3d);
+				jf.pack();
+			});
+			fm.add(startb);
 			JMenuItem lb = new JMenuItem("Load Script");
 			fm.add(lb);
 			mb.add(fm);
