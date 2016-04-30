@@ -37,7 +37,6 @@ public class WoodWorld {
 		
 		JPanel startjp = createStart();
 		JPanel wwjp = createWoodWorld();
-		JPanel3D jp3d= new JPanel3D();
 		
 		jp= new JPanel(new CardLayout());
 		jp.add(startjp, STARTPANEL);
