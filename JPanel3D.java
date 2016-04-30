@@ -1,9 +1,15 @@
 package edu.mccc.cos210.woodworld;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GraphicsConfigTemplate;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.geom.AffineTransform;
 
 import javax.media.j3d.AmbientLight;
 import javax.media.j3d.BoundingSphere;
@@ -26,12 +32,11 @@ import javax.vecmath.Vector3f;
 
 
 public class JPanel3D extends JPanel{
-	/**
-	 * 
-	 */
+	private AffineTransform gat = new AffineTransform();
 	private static final long serialVersionUID = 1L;
 	public JPanel3D() {
-		
+		setBackground(Color.BLACK);
+		setPreferredSize(new Dimension(930, 700));
 		Canvas3D canvas = createCanvas();
 		VirtualUniverse universe = new VirtualUniverse();
 		BranchGroup sgroup = createSceneBranchGroup();
@@ -138,8 +143,7 @@ public class JPanel3D extends JPanel{
 	        .getScreenDevices();
 
 	    Canvas3D c3d = new Canvas3D(gd[0].getBestConfiguration(gc3D));
-	    c3d.setSize(500, 500);
+	    c3d.setSize(915, 515);
 		return c3d;
 	}
-
 }
