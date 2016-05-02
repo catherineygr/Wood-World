@@ -12,17 +12,17 @@ import com.sun.j3d.utils.geometry.Box;
 import com.sun.j3d.utils.geometry.Cylinder;
 import com.sun.j3d.utils.geometry.Sphere;
 
-public class Segment extends TransformGroup{
+public class Segmentalpha extends TransformGroup{
 	double scalex, scaley, scalez;
 	Sphere joint;
 	Cylinder limb;
 	Appearance app;
-	public Segment() {
+	public Segmentalpha() {
 		joint= new Sphere(0.5f);
 		limb= new Cylinder(0.5f, 0.5f);
 		TransformGroup ltg = new TransformGroup();
 		Transform3D lt= new Transform3D();
-		Vector3f vector= new Vector3f(0.0f , -1.0f, 0.0f);
+		Vector3f vector= new Vector3f(0.0f , -0.5f, 0.0f);
 		lt.setTranslation(vector);
 		ltg.setTransform(lt);
 		ltg.addChild(limb);

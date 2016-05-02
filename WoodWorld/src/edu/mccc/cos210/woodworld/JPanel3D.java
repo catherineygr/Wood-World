@@ -55,20 +55,15 @@ import com.sun.j3d.utils.geometry.Sphere;
 import com.sun.j3d.utils.image.TextureLoader;
 
 
-
-
-
 public class JPanel3D extends JPanel{
 
 	private TransformGroup viewPlatformTransformGroup = new TransformGroup();
 	private Transform3D transform3D = new Transform3D();
 	private BoundingSphere boundingSphere = new BoundingSphere(new Point3d(0.0, 0.0, 0.0), Double.MAX_VALUE);
 	private TextureLoader textureLoader = new TextureLoader("block.jpg", null);
+	private Manny manny;
 	private static final long serialVersionUID = 1L;
 	public JPanel3D() {
-		
-		
-		VirtualUniverse universe = new VirtualUniverse();
 		
 		VirtualUniverse virtualUniverse = new VirtualUniverse();
 		Locale locale = new Locale(virtualUniverse);
@@ -83,7 +78,10 @@ public class JPanel3D extends JPanel{
 		branchGroup.addChild(keyCABehavior4);
 		locale.addBranchGraph(branchGroup);
 	}
-	private BranchGroup createViewBranch() {
+	public void mannyDance() {
+		manny.dance();
+	}
+ 	private BranchGroup createViewBranch() {
 		BranchGroup viewBranchGroup = new BranchGroup();
 		ViewPlatform viewPlatform = new ViewPlatform();
 		viewPlatformTransformGroup.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
@@ -107,7 +105,7 @@ public class JPanel3D extends JPanel{
 		PhysicalEnvironment physicalEnvironment = new PhysicalEnvironment();
 		view.setPhysicalEnvironment(physicalEnvironment);
 		view.attachViewPlatform(viewPlatform);
-		canvas3D.setSize(new Dimension(500, 500));
+		canvas3D.setSize(new Dimension(915, 515));
 		canvas3D.requestFocus();
 		add(canvas3D);
 		return viewBranchGroup;
@@ -126,24 +124,12 @@ public class JPanel3D extends JPanel{
 				} else {
 					if (map[z * xMax + x] == MazeMap.PLAYER) {
 						viewPlatformTransformGroup.getTransform(transform3D);
-						transform3D.set(new Vector3d(x, -1.0, z));
+						transform3D.set(new Vector3d(x, 0.0, z));
 						viewPlatformTransformGroup.setTransform(transform3D);
 					} else {
-						if (map[z * xMax + x] == MazeMap.OBJECT1) {
-							addObject1(transformGroup, x, z);
-						} else {
-							if (map[z * xMax + x] == MazeMap.OBJECT2) {
-								addObject2(transformGroup, x, z);
-							} else {
-								if (map[z * xMax + x] == MazeMap.OBJECT3) {
-									addObject3(transformGroup, x, z);
-								} else {
-									if (map[z * xMax + x] == MazeMap.OBJECT4) {
-										addObject4(transformGroup, x, z);
-									}
-								}
-							}
-						}
+						if (map[z * xMax + x] == MazeMap.STAGE) {
+							addStage(transformGroup, x, z);
+						} 
 					}
 				}
 			}
@@ -155,184 +141,22 @@ public class JPanel3D extends JPanel{
 		setupLights(branchGroup);
 		return branchGroup;
 	}
-	private void addObject1(Group group, int x, int z) {
-		TransformGroup transformGroup = new TransformGroup();
-		Transform3D transform3D = new Transform3D();
-		transformGroup.getTransform(transform3D);
-		transform3D.setTranslation(new Vector3f(x, -1.375f, z));
-		transformGroup.setTransform(transform3D);
-		Shape3D shape3D = new Shape3D();
-		TableT tableT = new TableT();
-		tableT.setCapability(Geometry.ALLOW_INTERSECT);
-		tableT.setCapability(GeometryArray.ALLOW_COUNT_READ);
-		tableT.setCapability(GeometryArray.ALLOW_FORMAT_READ);
-		tableT.setCapability(GeometryArray.ALLOW_COORDINATE_READ);
-		shape3D.addGeometry(tableT);
-		shape3D.setCapability(Shape3D.ALLOW_GEOMETRY_READ);
-		Appearance appearance = new Appearance();
-		Material material = new Material(
-			new Color3f(1.0f, 1.0f, 1.0f),
-			new Color3f(0.0f, 0.0f, 0.0f),
-			new Color3f(0.5f, 0.5f, 0.5f),
-			new Color3f(1.0f, 1.0f, 1.0f),
-			96.0f
-		);
-		appearance.setMaterial(material);
-		TextureLoader textureLoader = new TextureLoader("J3D10.jpg", null);
-		Texture texture = textureLoader.getTexture();
-		texture.setBoundaryModeS(Texture.CLAMP);
-		texture.setBoundaryModeT(Texture.CLAMP);
-		appearance.setTexture(texture);
-		shape3D.setAppearance(appearance);
-		transformGroup.addChild(shape3D);
-		group.addChild(transformGroup);
-	}
-	private void addObject2(Group group, int x, int z) {
+	private void addStage(Group group, int x, int z) {
 		TransformGroup transformGroup1 = new TransformGroup();
 		Transform3D transform3D = new Transform3D();
-		transformGroup1.getTransform(transform3D);
-		transform3D.setTranslation(new Vector3f(x, -1.0f, z));
-		transformGroup1.setTransform(transform3D);
-		TransformGroup transformGroup2 = new TransformGroup();
-		transformGroup2.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
-		transformGroup2.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
-		Appearance appearance = new Appearance();
-		Material material = new Material(
-			new Color3f(1.0f, 1.0f, 1.0f),
-			new Color3f(0.0f, 0.0f, 0.0f),
-			new Color3f(0.5f, 0.5f, 0.5f),
-			new Color3f(1.0f, 1.0f, 1.0f),
-			96.0f
-		);
-		appearance.setMaterial(material);
-		Sphere sphere = new Sphere(
-			1.0f,
-			Primitive.ENABLE_GEOMETRY_PICKING |
-				Primitive.GENERATE_NORMALS |
-				Primitive.GENERATE_TEXTURE_COORDS,
-				128,
-				appearance
-		);
-		RotationInterpolator rotationInterpolator = new RotationInterpolator(
-			new Alpha(
-				-1,
-				Alpha.INCREASING_ENABLE,
-				0,
-				0,
-				500,
-				0,
-				0,
-				0,
-				0,
-				0
-			),
-			transformGroup2
-		);
-		Shape3D shape3D = sphere.getShape(Sphere.BODY);
-		shape3D.setUserData(
-			new ApplicationBundle(
-				"CollisionBehavior",
-				new CollisionBehavior(
-					shape3D.hashCode(),
-					2500,
-					rotationInterpolator,
-					transformGroup2
-				)
-			)
-		);
-		rotationInterpolator.setEnable(false);
-		rotationInterpolator.setSchedulingBounds(boundingSphere);
-		transformGroup2.addChild(rotationInterpolator);
-		TextureLoader textureLoader = new TextureLoader("J3D14.jpg", null);
-		Texture texture = textureLoader.getTexture();
-		texture.setBoundaryModeS(Texture.CLAMP);
-		texture.setBoundaryModeT(Texture.CLAMP);
-		appearance.setTexture(texture);
-		transformGroup2.addChild(sphere);
-		transformGroup1.addChild(transformGroup2);
-		group.addChild(transformGroup1);
-	}
-	private void addObject3(Group group, int x, int z) {
-		TransformGroup transformGroup1 = new TransformGroup();
-		transformGroup1.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
-		transformGroup1.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
-		Quat4f q4f0 = new Quat4f();
-		q4f0.set(new AxisAngle4d(0.0, 1.0, 0.0, 0.0));
-		Quat4f q4f1 = new Quat4f();
-		q4f1.set(new AxisAngle4d(0.0, 1.0, 0.0, Math.PI / 2.0));
-		Quat4f q4f2 = new Quat4f();
-		q4f2.set(new AxisAngle4d(0.0, 1.0, 0.0, Math.PI / 2.0 * 2.0));
-		Quat4f q4f3 = new Quat4f();
-		q4f3.set(new AxisAngle4d(0.0, 1.0, 0.0, Math.PI / 2.0 * 3.0));
-		RotPosPathInterpolator rppi = new RotPosPathInterpolator(
-			new Alpha(
-				-1,
-				24000
-			),
-			transformGroup1,
-			new Transform3D(),
-			new float[] {
-				0.0f,
-				0.24f,
-				0.25f,
-				0.49f,
-				0.5f,
-				0.74f,
-				0.75f,
-				0.99f,
-				1.0f
-			},
-			new Quat4f[] {
-				q4f0,
-				q4f0,
-				q4f1,
-				q4f1,
-				q4f2,
-				q4f2,
-				q4f3,
-				q4f3,
-				q4f0
-			},
-			new Point3f[] {
-				new Point3f(0.0f, 0.0f, 0.0f),
-
-				new Point3f(0.0f, 0.0f, 6.0f),
-				new Point3f(0.0f, 0.0f, 6.0f),
-
-				new Point3f(6.0f, 0.0f, 6.0f),
-				new Point3f(6.0f, 0.0f, 6.0f),
-
-				new Point3f(6.0f, 0.0f, 0.0f),
-				new Point3f(6.0f, 0.0f, 0.0f),
-
-				new Point3f(0.0f, 0.0f, 0.0f),
-				new Point3f(0.0f, 0.0f, 0.0f)
-			}
-		);
-		rppi.setSchedulingBounds(boundingSphere);
-		transformGroup1.addChild(rppi);
-		TransformGroup transformGroup2 = new TransformGroup();
-		Transform3D transform3D2 = new Transform3D();
-		transformGroup2.getTransform(transform3D2);
-		transform3D2.setTranslation(new Vector3f(x, -2.025f, z));
-		transformGroup2.setTransform(transform3D2);
-		transformGroup1.addChild(new Beaver());
-		transformGroup2.addChild(transformGroup1);
-		group.addChild(transformGroup2);
-	}
-	private void addObject4(Group group, int x, int z) {
-		TransformGroup transformGroup1 = new TransformGroup();
-		Transform3D transform3D1 = new Transform3D();
-		transformGroup1.getTransform(transform3D);
-		transform3D1.setTranslation(new Vector3f(x, -0.65f, z));
-		transformGroup1.setTransform(transform3D1);
-		TransformGroup transformGroup2 = new TransformGroup();
-		Transform3D transform3D2 = new Transform3D();
-		transformGroup2.getTransform(transform3D2);
-		transform3D2.setScale(0.5);
-		transformGroup2.setTransform(transform3D2);
-		transformGroup2.addChild(new Truck2());
-		transformGroup1.addChild(transformGroup2);
+		Stage stage = new Stage();
+		stage.getTransform(transform3D);
+		transform3D.setTranslation(new Vector3f(x, -1.5f, z));
+		stage.setTransform(transform3D);
+		stage.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
+		stage.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
+		Manny manny = new Manny();
+		Transform3D transformmanny = new Transform3D();
+		manny.getTransform(transformmanny);
+		transformmanny.setTranslation(new Vector3f(x, -0.5f,z - 0.5f));
+		manny.setTransform(transformmanny);
+		transformGroup1.addChild(manny);
+		transformGroup1.addChild(stage);
 		group.addChild(transformGroup1);
 	}
 	private void addBlock(Group group, int x, int z) {
@@ -378,26 +202,18 @@ public class JPanel3D extends JPanel{
 		private final static int NOOBJECT = 0;
 		private final static int WALL = 1;
 		private final static int PLAYER = 2;
-		private final static int OBJECT1 = 3;
-		private final static int OBJECT2 = 4;
-		private final static int OBJECT3 = 5;
-		private final static int OBJECT4 = 6;
-		private final static int STAGE = 6;
+		private final static int STAGE = 3;
 		public MazeMap() {
 			try {
-				BufferedImage bufferedImage = ImageIO.read(new URL("file:map.bmp"));
+				BufferedImage bufferedImage = ImageIO.read(new URL("file:mapww.bmp"));
 				this.width = bufferedImage.getData().getWidth();
 				this.height = bufferedImage.getData().getHeight();
 				this.map = new int[width * height];
 				int[] pixels = bufferedImage.getData().getPixels(0, 0, width, height, (int[]) null);
 				for (int i = 0; i < pixels.length; i += 3) {
-					int what = pixels[i] > 200 && pixels[i + 1] < 200 && pixels[i + 2] < 200 ? PLAYER :
-						pixels[i] < 200 && pixels[i + 1] < 200 && pixels[i + 2] > 200 ? OBJECT1 :
+					int what = pixels[i] > 200 && pixels[i + 1] < 200 && pixels[i + 2] < 200 ? PLAYER : //red
+						pixels[i] < 200 && pixels[i + 1] < 200 && pixels[i + 2] > 200 ? STAGE : //blue
 							pixels[i] < 100 && pixels[i + 1] < 100 && pixels[i + 2] < 100 ? WALL :
-								pixels[i] < 200 && pixels[i + 1] > 200 && pixels[i + 2] < 200 ? OBJECT2 :
-									pixels[i] > 200 && pixels[i + 1] > 200 && pixels[i + 2] < 200 ? OBJECT3 :
-										pixels[i] > 200 && pixels[i + 1] < 200 && pixels[i + 2] > 200 ? OBJECT4 :
-											//pixels[i] > 200 && pixels[i + 1] > 200 && pixels[i + 2] > 200 ? STAGE:
 								NOOBJECT;
 					this.map[i / 3] = what;
 				}
@@ -686,39 +502,4 @@ public class JPanel3D extends JPanel{
 		group.addChild(owalls);
 	}
 
-	private View createView(ViewPlatform vp) {
-		View view = new View();
-		Canvas3D canvas = createCanvas();
-		//create the PhysicalBody and PhysicalEnvironment for the View
-		//and attach to the View
-		PhysicalBody pb = new PhysicalBody();
-		PhysicalEnvironment pe = new PhysicalEnvironment();
-		view.setPhysicalEnvironment( pe );
-		view.setPhysicalBody( pb );
-
-		//attach the View to the ViewPlatform
-		view.attachViewPlatform(vp);
-
-		//set the near and far clipping planes for the View
-		view.setBackClipDistance(110); 
-		view.addCanvas3D(canvas);
-		add(canvas, BorderLayout.CENTER);
-		return view;
-	}
-	private ViewPlatform createViewPlatform() {
-		ViewPlatform vp = new ViewPlatform();
-	    vp.setViewAttachPolicy(View.RELATIVE_TO_FIELD_OF_VIEW);
-	    vp.setActivationRadius(100);
-	    return vp;
-	}
-	private Canvas3D createCanvas() {
-		GraphicsConfigTemplate3D gc3D = new GraphicsConfigTemplate3D();
-	    gc3D.setSceneAntialiasing(GraphicsConfigTemplate.PREFERRED);
-	    GraphicsDevice gd[] = GraphicsEnvironment.getLocalGraphicsEnvironment()
-	        .getScreenDevices();
-
-	    Canvas3D c3d = new Canvas3D(gd[0].getBestConfiguration(gc3D));
-	    c3d.setSize(new Dimension(500, 500));
-		return c3d;
-	}
 }

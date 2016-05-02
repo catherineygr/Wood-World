@@ -1,4 +1,4 @@
-package tutorials;
+package edu.mccc.cos210.woodworld;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -32,16 +32,15 @@ import javax.vecmath.Vector3f;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 
-public class JPanel3D extends JPanel{
+public class testjp3d extends JPanel{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public JPanel3D() {
+	public testjp3d() {
 		
 		Canvas3D canvas = createCanvas();
 		VirtualUniverse universe = new VirtualUniverse();
-		Hand hand = new Hand();
 		BranchGroup sgroup = createSceneBranchGroup();
 		//BranchGroup vgroup = new BranchGroup();
 		
@@ -108,8 +107,8 @@ public class JPanel3D extends JPanel{
 	    lgt1.setInfluencingBounds(bounds);
 	    
 	   
-	    Hand hand = new Hand();
-	    sceneBranchGroup.addChild(hand);
+	    Segmentalpha segment = new Segmentalpha();
+	    sceneBranchGroup.addChild(segment);
 	    
 	    objRoot.addChild(aLgt);
 	    objRoot.addChild(lgt1);
