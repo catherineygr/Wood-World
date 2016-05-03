@@ -249,6 +249,7 @@ public class WoodWorld {
 		JButton btnJump = new JButton("Jump");
 		btnJump.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnJump.setBounds(20, 340, 85, 40);
+		btnJump.addActionListener(ae->{panel.mannyJump();});
 		wwjp.add(btnJump);
 		
 		JButton btnDance = new JButton("Dance");

@@ -78,8 +78,8 @@ public class JPanel3D extends JPanel{
 		branchGroup.addChild(keyCABehavior4);
 		locale.addBranchGraph(branchGroup);
 	}
-	public void mannyDance() {
-		manny.dance();
+	public void mannyJump() {
+		manny.jump();
 	}
  	private BranchGroup createViewBranch() {
 		BranchGroup viewBranchGroup = new BranchGroup();
