@@ -150,7 +150,7 @@ public class JPanel3D extends JPanel{
 		stage.setTransform(transform3D);
 		stage.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
 		stage.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
-		Manny manny = new Manny(1.0f,1.0f);
+		manny = new Manny(1.0f,1.0f);
 		Transform3D transformmanny = new Transform3D();
 		manny.getTransform(transformmanny);
 		transformmanny.setTranslation(new Vector3f(x, 0.8f,z - 0.5f));
