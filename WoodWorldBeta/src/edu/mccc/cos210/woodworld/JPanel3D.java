@@ -8,6 +8,8 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 import javax.media.j3d.Alpha;
 import javax.media.j3d.AmbientLight;
@@ -61,7 +63,10 @@ public class JPanel3D extends JPanel{
 	private Transform3D transform3D = new Transform3D();
 	private BoundingSphere boundingSphere = new BoundingSphere(new Point3d(0.0, 0.0, 0.0), Double.MAX_VALUE);
 	private TextureLoader textureLoader = new TextureLoader("block.jpg", null);
-	private Manny manny;
+	private Manny manny, manny2, manny3, manny4;
+	private Stage stage;
+	private ArrayList<Box> curtain= new ArrayList<Box>();
+	
 	private static final long serialVersionUID = 1L;
 	public JPanel3D() {
 		
@@ -78,8 +83,7 @@ public class JPanel3D extends JPanel{
 		branchGroup.addChild(keyCABehavior4);
 		locale.addBranchGraph(branchGroup);
 	}
-	public void mannyJump() {
-		manny.jump();
+	public void toggleVisability(int mannvalue) {
 	}
  	private BranchGroup createViewBranch() {
 		BranchGroup viewBranchGroup = new BranchGroup();
@@ -144,7 +148,7 @@ public class JPanel3D extends JPanel{
 	private void addStage(Group group, int x, int z) {
 		TransformGroup transformGroup1 = new TransformGroup();
 		Transform3D transform3D = new Transform3D();
-		Stage stage = new Stage();
+		stage = new Stage(3);
 		stage.getTransform(transform3D);
 		transform3D.setTranslation(new Vector3f(x, -1.5f, z));
 		stage.setTransform(transform3D);
@@ -159,6 +163,9 @@ public class JPanel3D extends JPanel{
 		transformGroup1.addChild(stage);
 		group.addChild(transformGroup1);
 	}
+	public void setStage(int stagevalue){
+		stage.setScene(stagevalue);
+	}
 	private void addBlock(Group group, int x, int z) {
 		TransformGroup transformGroup = new TransformGroup();
 		Transform3D transform3D = new Transform3D();
@@ -172,20 +179,35 @@ public class JPanel3D extends JPanel{
 			new Color3f(1.0f, 1.0f, 1.0f),
 			80f
 		);
-		Appearance appearance = new Appearance();
-		appearance.setMaterial(material);
-		appearance.setTexCoordGeneration(new TexCoordGeneration());
-		appearance.setTexture(textureLoader.getTexture());
+		Appearance app = new Appearance();
+		app.setCapability(Appearance.ALLOW_COLORING_ATTRIBUTES_READ);
+        app.setCapability(Appearance.ALLOW_COLORING_ATTRIBUTES_WRITE);
+		app.setCapability(Appearance.ALLOW_TEXTURE_WRITE);
+		app.setCapability(Appearance.ALLOW_TEXTURE_READ);
+		app.setCapability(Appearance.ALLOW_MATERIAL_READ);
+		app.setCapability(Appearance.ALLOW_MATERIAL_WRITE);
+		app.setCapability(Appearance.ALLOW_TEXTURE_ATTRIBUTES_READ);
+		app.setCapability(Appearance.ALLOW_TEXTURE_ATTRIBUTES_WRITE);
+		app.setMaterial(material);
+		app.setTexCoordGeneration(new TexCoordGeneration());
+		app.setTexture(textureLoader.getTexture());
 		Box box = new Box(
 				1.0f,
 				2.0f,
 				1.0f,
 				Primitive.GENERATE_NORMALS |
 					Primitive.ENABLE_GEOMETRY_PICKING,
-				appearance
+				app
 		);
 		transformGroup.addChild(box);
 		group.addChild(transformGroup);
+		curtain.add(box);
+	}
+	public void setCurtain(int sv) {
+		for (int i=0;i<curtain.size(); ) {
+			//curtain.get(i).setAlternateCollisionTarget(arg0);
+			
+		}
 	}
 	private void setupLights(BranchGroup branchGroup) {
 		AmbientLight ambientLight = new AmbientLight(
