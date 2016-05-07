@@ -78,8 +78,8 @@ public class JPanel3D extends JPanel{
 		branchGroup.addChild(keyCABehavior4);
 		locale.addBranchGraph(branchGroup);
 	}
-	public void mannyDance() {
-		manny.dance();
+	public void mannyJump() {
+		manny.jump();
 	}
  	private BranchGroup createViewBranch() {
 		BranchGroup viewBranchGroup = new BranchGroup();
@@ -150,10 +150,10 @@ public class JPanel3D extends JPanel{
 		stage.setTransform(transform3D);
 		stage.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
 		stage.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
-		Manny manny = new Manny();
+		manny = new Manny();
 		Transform3D transformmanny = new Transform3D();
 		manny.getTransform(transformmanny);
-		transformmanny.setTranslation(new Vector3f(x, -0.5f,z - 0.5f));
+		transformmanny.setTranslation(new Vector3f(x, 0.8f,z - 0.5f));
 		manny.setTransform(transformmanny);
 		transformGroup1.addChild(manny);
 		transformGroup1.addChild(stage);
