@@ -205,7 +205,7 @@ public class JPanel3D extends JPanel{
 	}
 	public void setCurtain(int sv) {
 		for (int i=0;i<curtain.size(); ) {
-			curtain.get(i).setAlternateCollisionTarget(arg0);
+			//curtain.get(i).setAlternateCollisionTarget(arg0);
 			
 		}
 	}
