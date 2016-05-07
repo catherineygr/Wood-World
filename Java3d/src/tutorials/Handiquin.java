@@ -11,7 +11,7 @@ public class Handiquin {
 		JFrame jf = new JFrame("Hand Test");
 		JMenuBar mb = new JMenuBar();
 		JMenu m = new JMenu("Menu");
-		JPanel3D jp3d = new JPanel3D();
+		testjp3d jp3d = new testjp3d();
 		mb.add(m);
 		jf.setJMenuBar(mb);
 		jf.add(jp3d);

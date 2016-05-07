@@ -37,12 +37,11 @@ public class WoodWorld {
 		
 		JPanel startjp = createStart();
 		JPanel wwjp = createWoodWorld();
-		JPanel3D jp3d= new JPanel3D();
 		
 		jp= new JPanel(new CardLayout());
 		jp.add(startjp, STARTPANEL);
 		jp.add(wwjp, WOODWORLD);
-		jp.setPreferredSize(wwjp.getPreferredSize());
+		jp.setPreferredSize(startjp.getPreferredSize());
 		jf.add(jp);
 		jf.setJMenuBar(createMenu());
 		jf.pack();
@@ -54,44 +53,33 @@ public class WoodWorld {
 	private JPanel createWoodWorld() {
 		JPanel wwjp = new JPanel();
 		wwjp.setBackground(new Color(160, 82, 45));
-		wwjp.setBounds(100, 100, 800, 725);
-		wwjp.setLayout(null);
+		wwjp.setBounds(100, 100, 1080, 725);
+		
+
+		JPanel3D panel = new JPanel3D();
+		panel.setBounds(115, 20, 930, 525);
+		wwjp.add(panel);
 		
 		JButton btnTutorial = new JButton("Tutorial");
 		btnTutorial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Tutorial tut = new Tutorial();
-				tut.NewScreen();
+				Tutorial.NewScreen();
 			}
 		});
-		btnTutorial.setBounds(658, 555, 116, 42);
+		btnTutorial.setBounds(20, 555, 116, 42);
 		wwjp.add(btnTutorial);
 		
 		JButton btnCredits = new JButton("Credits");
 		btnCredits.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Credits cred = new Credits();
-				cred.NewScreen();
+				Credits.NewScreen();
 			}
 		});
-		btnCredits.setBounds(658, 608, 116, 42);
+		btnCredits.setBounds(20, 608, 116, 42);
 		wwjp.add(btnCredits);
-		
-		JButton btnStage = new JButton("Stage 1");
-		btnStage.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnStage.setBounds(680, 20, 85, 40);
-		wwjp.add(btnStage);
-		
-		JButton btnStage_1 = new JButton("Stage 2");
-		btnStage_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnStage_1.setBounds(680, 100, 85, 40);
-		wwjp.add(btnStage_1);
-		
-		JButton btnStage_2 = new JButton("Stage 3");
-		btnStage_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnStage_2.setBounds(680, 180, 85, 40);
-		wwjp.add(btnStage_2);
-		
+
 		JButton btnNewButton = new JButton("Walk");
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnNewButton.setBounds(20, 20, 85, 40);
@@ -120,13 +108,10 @@ public class WoodWorld {
 		JButton btnDance = new JButton("Dance");
 		btnDance.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnDance.setBounds(20, 420, 85, 40);
+		btnDance.addActionListener(ae->{panel.mannyDance();});
 		wwjp.add(btnDance);
 		
 		
-		
-		JPanel3D panel = new JPanel3D();
-		panel.setBounds(115, 20, 555, 525);
-		wwjp.add(panel);
 		return wwjp;
 	}
 	private JTextField createConsole() {
@@ -136,82 +121,102 @@ public class WoodWorld {
 	}
 	private JPanel createStart() {
 		JPanel start = new JPanel();
-		start.setBounds(100, 100, 800, 700);
 		start.setLayout(null);
+		start.setBounds(100, 100, 1080, 725);
 		
 		JButton btnStart = new JButton("Start");
-		btnStart.addActionListener(al -> {
+		btnStart.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnStart.addActionListener(al->{
 			CardLayout cl = (CardLayout)(jp.getLayout());
 			cl.show(jp, WOODWORLD);
 		});
-		btnStart.setBounds(345, 569, 89, 23);
+		btnStart.setBounds(455, 569, 115, 45);
 		start.add(btnStart);
 		
 		JLabel lblWelcomeToThe = new JLabel("Welcome to the Wonders of");
 		lblWelcomeToThe.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 36));
 		lblWelcomeToThe.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWelcomeToThe.setBounds(10, 11, 764, 44);
+		lblWelcomeToThe.setBounds(10, 11, 1044, 44);
 		start.add(lblWelcomeToThe);
 		
 		JLabel lblWoodworld = new JLabel("WOODWORLD");
 		lblWoodworld.setForeground(new Color(139, 69, 19));
 		lblWoodworld.setFont(new Font("Tahoma", Font.BOLD, 48));
 		lblWoodworld.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWoodworld.setBounds(10, 56, 764, 50);
+		lblWoodworld.setBounds(10, 56, 1044, 50);
 		start.add(lblWoodworld);
 		
 		JButton btnTutorial = new JButton("Tutorial");
+		btnTutorial.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		btnTutorial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Tutorial tut = new Tutorial();
 				tut.NewScreen();
 			}
 		});
-		btnTutorial.setBounds(10, 627, 89, 23);
+		btnTutorial.setBounds(10, 630, 100, 40);
 		start.add(btnTutorial);
 		
 		JButton btnCredits = new JButton("Credits");
+		btnCredits.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		btnCredits.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Credits cred = new Credits();
 				cred.NewScreen();
 			}
 		});
-		btnCredits.setBounds(685, 627, 89, 23);
+		btnCredits.setBounds(954, 630, 100, 40);
 		start.add(btnCredits);
 		
+//		ManneDemo man1 = new ManneDemo();
+//		man1.setBounds(56, 110, 160, 175);
+//		start.add(man1);
+//		
+//		ManneDemo man2 = new ManneDemo();
+//		man2.setBounds(310, 110, 160, 175);
+//		start.add(man2);
+//		
+//		ManneDemo man3 = new ManneDemo();
+//		man3.setBounds(588, 110, 160, 175);
+//		start.add(man3);
+//		
+//		ManneDemo man4 = new ManneDemo();
+//		man4.setBounds(848, 110, 160, 175);
+//		start.add(man4);
+		
 		JToggleButton tglbtnElCapitan = new JToggleButton("Col. Mustard");
-		tglbtnElCapitan.setBounds(30, 295, 121, 23);
+		tglbtnElCapitan.setBounds(75, 296, 121, 23);
 		start.add(tglbtnElCapitan);
 		
 		JToggleButton tglbtnMissScarlet = new JToggleButton("Miss Scarlet");
-		tglbtnMissScarlet.setBounds(224, 295, 121, 23);
+		tglbtnMissScarlet.setBounds(331, 296, 121, 23);
 		start.add(tglbtnMissScarlet);
 		
 		JToggleButton tglbtnProfPlum = new JToggleButton("Prof. Plum");
-		tglbtnProfPlum.setBounds(433, 295, 121, 23);
+		tglbtnProfPlum.setBounds(608, 296, 121, 23);
 		start.add(tglbtnProfPlum);
 		
 		JToggleButton tglbtnMrGreeen = new JToggleButton("Mr. Green");
-		tglbtnMrGreeen.setBounds(631, 295, 121, 23);
+		tglbtnMrGreeen.setBounds(869, 296, 121, 23);
 		start.add(tglbtnMrGreeen);
 		
-		JRadioButton rdbtnStage = new JRadioButton("Stage 1", true);
-		rdbtnStage.setBounds(73, 511, 109, 23);
+		JRadioButton rdbtnStage = new JRadioButton("Stage 1");
+		rdbtnStage.setBounds(75, 510, 75, 25);
 		start.add(rdbtnStage);
 		
 		JRadioButton rdbtnStage_1 = new JRadioButton("Stage 2");
-		rdbtnStage_1.setBounds(353, 511, 70, 23);
+		rdbtnStage_1.setBounds(478, 510, 75, 25);
 		start.add(rdbtnStage_1);
-		
+
 		JRadioButton rdbtnStage_2 = new JRadioButton("Stage 3");
-		rdbtnStage_2.setBounds(646, 511, 70, 23);
+		rdbtnStage_2.setBounds(926, 510, 75, 25);
 		start.add(rdbtnStage_2);
 		
-		ButtonGroup stagebg = new ButtonGroup();
-		stagebg.add(rdbtnStage);
-		stagebg.add(rdbtnStage_1);
-		stagebg.add(rdbtnStage_2);
+		ButtonGroup bg = new ButtonGroup();
+
+		bg.add(rdbtnStage);
+		bg.add(rdbtnStage_1);
+		bg.add(rdbtnStage_2);
 		return start;
 	}
 	private JMenuBar createMenu(){
