@@ -27,6 +27,7 @@ abstract class Mannequin extends TransformGroup {
 	LowerBody lowerBody;
 	BoundingSphere boundingSphere = new BoundingSphere(new Point3d(0.0, 0.0, 0.0), Double.MAX_VALUE);
 	String name;
+	TransformGroup maintg= new TransformGroup();
 	float x, y;
 	public Mannequin(float scalex, float scaley, TextureLoader tl) {
 		this.x = scalex;
@@ -55,13 +56,14 @@ abstract class Mannequin extends TransformGroup {
 		Transform3D t3dub = new Transform3D();
 		t3dub.setTranslation(new Vector3f(0.0f * x, 0.4f * y, 0.0f));
 		ub.setTransform(t3dub);
-		addChild(ub);
+		maintg.addChild(ub);
 		LowerBody lb = new LowerBody();
 		Transform3D t3dlb = new Transform3D();
 		t3dlb.setTranslation(new Vector3f(0.0f * x, -0.25f * y, 0.0f));
 		lb.setTransform(t3dlb);
-		addChild(lb);
-		addChild(waist);		
+		maintg.addChild(lb);
+		maintg.addChild(waist);	
+		addChild(maintg);
 	}
 	public class Segment extends TransformGroup{
 		double scalex, scaley;
@@ -206,8 +208,9 @@ abstract class Mannequin extends TransformGroup {
 			lt3d.setTranslation(new Vector3f(0.0f * x, -0.4f * y, 0.0f));
 			foot= new Extreme();
 			Transform3D ft3d = new Transform3D();
+			ft3d.rotX(3 * Math.PI/2);
 			ft3d.setTranslation(new Vector3f(0.0f * x, -0.8f * y, 0.0f));
-			ft3d.rotX(Math.PI/2);
+			
 			lower.setTransform(lt3d);
 			foot.setTransform(ft3d);
 			
@@ -263,5 +266,8 @@ abstract class Mannequin extends TransformGroup {
 	abstract void jump();
 	abstract void sit();
 	abstract void run();
+	public void toggleVisibility() {
+		
+	}
 	
 }

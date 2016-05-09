@@ -40,12 +40,14 @@ public class WoodWorld {
 	JPanel jp;
 	JTextField textfield;
 	JPanel2D scriptp;
+	JPanel3D jp3d;
 	private ScriptEngine se;
 	final static String STARTPANEL = "Test start";
 	final static String WOODWORLD = "Test WoodWorld";
 	final static String SCRIPTTEST = "Test Panel for scripting";
 	private JPanel wwjp;
 	private JPanel wwjp2d;
+	private JCheckBox rb;
 	WoodWorld() {
 		ScriptEngineManager sem = new ScriptEngineManager();
 		se = sem.getEngineByName("ECMAScript");
@@ -195,15 +197,15 @@ public class WoodWorld {
 		wwjp.setBackground(Color.RED);
 		wwjp.setLayout(null);
 
-		JPanel3D panel = new JPanel3D();
+		jp3d = new JPanel3D();
 		
 		wwjp.setPreferredSize(new Dimension(1080, 725));
-		panel.setBounds(115, 20, 930, 525);
-		wwjp.add(panel);
+		jp3d.setBounds(115, 20, 930, 525);
+		wwjp.add(jp3d);
 		//end of test code
 		
 		//testing code
-		panel.setVisible(true);
+		jp3d.setVisible(true);
 		//end of test code
 		
 		JButton btnTutorial = new JButton("Tutorial");
@@ -249,7 +251,6 @@ public class WoodWorld {
 		JButton btnJump = new JButton("Jump");
 		btnJump.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnJump.setBounds(20, 340, 85, 40);
-		btnJump.addActionListener(ae->{panel.mannyJump();});
 		wwjp.add(btnJump);
 		
 		JButton btnDance = new JButton("Dance");
@@ -406,7 +407,7 @@ public class WoodWorld {
 			mb.add(fm);
 			
 			JMenu mm = new JMenu("Mannequin");
-			JCheckBox rb = new JCheckBox("Rich");
+			rb = new JCheckBox("Rich");
 			JCheckBox eb = new JCheckBox("Elliot");
 			JCheckBox sb = new JCheckBox("Sergey");
 			JCheckBox cb = new JCheckBox("Catherine");
@@ -419,9 +420,19 @@ public class WoodWorld {
 			
 			JMenu sm = new JMenu("Scene");
 			JRadioButton s1 = new JRadioButton("Irish", true);
+			s1.addActionListener(ae -> {
+				jp3d.setStage(1);
+			});
 			JRadioButton s2 = new JRadioButton("Ballet");
+			s2.addActionListener(ae -> {
+				jp3d.setStage(2);
+			});
 			JRadioButton s3 = new JRadioButton("Ninties");
+			s3.addActionListener(ae -> {
+				jp3d.setStage(3);
+			});
 			ButtonGroup sbg = new ButtonGroup();
+			
 			
 			sbg.add(s1);
 			sbg.add(s2);

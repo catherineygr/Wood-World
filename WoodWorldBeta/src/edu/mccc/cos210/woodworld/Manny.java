@@ -26,13 +26,7 @@ public class Manny extends Mannequin {
 
 	@Override
 	public void jump() {
-		Vector3f vector = new Vector3f(0.0f, 0.5f, 0.0f);
-		Transform3D t3d = new Transform3D();
-		getTransform(t3d);
-		t3d.setTranslation(vector);
 		
-		
-		setTransform(t3d);
 		
 		
 	}
