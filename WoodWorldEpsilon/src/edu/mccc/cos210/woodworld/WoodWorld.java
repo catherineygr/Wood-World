@@ -197,7 +197,7 @@ public class WoodWorld {
 			CardLayout cl = (CardLayout)(jp.getLayout());
 			cl.show(jp, WOODWORLD);
 		});
-		btnStart.setBounds(455, 569, 115, 45);
+		btnStart.setBounds(490, 569, 115, 45);
 		start.add(btnStart);
 		
 		JLabel lblWelcomeToThe = new JLabel("Welcome to the Wonders of");
